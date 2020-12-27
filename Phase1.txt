@@ -1,0 +1,72 @@
+/* 
+Names: Ian Rowe, Larry Chiem, Nick Stankovich, Raymond Shum
+Group: Group 2 - InnovaTree
+Assignment Name: (M5) Write a Java program (GUI "Low Card" game) (8 hrs)
+Due Date: December 1st, 2020
+Main takes the example provided and makes it completely functional.
+Uses Arrays instead of helper methods.
+*/
+ import javax.swing.*;
+ import java.awt.*;
+ public class Assig5 
+ {
+    // static for the 57 icons and their corresponding labels
+    // normally we would not have a separate label for each card, but
+    // if we want to display all at once using labels, we need to.
+    static final int NUM_CARD_IMAGES = 57; // 52 + 4 jokers 
+    //+ 1 back-of-card image
+    //Static Arrays to help create and store the images.
+    static Icon[] icon = new ImageIcon[NUM_CARD_IMAGES];
+    static String[] cardPartsNum=new String[]{"A","2","3","4",
+          "5","6","7","8","9","T","J","Q","K","X"};   
+    static String[] cardPartsSuit=new String[]{"C","D","H","S"};   
+    static void loadCardIcons()
+    {
+       // build the file names ("AC.gif", "2C.gif", "3C.gif", "TC.gif", etc.)
+       // in a SHORT loop.  For each file name, read it in and use it to
+       // instantiate each of the 57 Icons in the icon[] array.
+       //
+       String fileName;
+       //Int to allow us to iterate through the array
+       int imageCounter=0;
+       //For suits 0-3 (Clubs, Diamonds, Hearts, Spades
+       for(int y=0;y<4;y++) 
+       {
+          //For the 14 possible card values
+          for(int x = 0;x<14;x++) 
+          {
+             //Using the arrays, turns the ints into Strings
+             fileName="images/"+cardPartsNum[x]+cardPartsSuit[y]+".gif";
+             //Be sure to put the images in ...\(projectname)\images!
+             icon[imageCounter]= new ImageIcon(fileName);
+             //Depricated testing stuff
+             //System.out.println(fileName);
+             imageCounter++;
+          }
+       }
+    }
+    // a simple main to throw all the JLabels out there for the world to see
+    public static void main(String[] args)
+    {
+       int k;
+       // prepare the image icon array
+       loadCardIcons();
+       // establish main frame in which program will run
+       JFrame frmMyWindow = new JFrame("Card Room");
+       frmMyWindow.setSize(1150, 650);
+       frmMyWindow.setLocationRelativeTo(null);
+       frmMyWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       // set up layout which will control placement of buttons, etc.
+       FlowLayout layout = new FlowLayout(FlowLayout.CENTER, 5, 20);   
+       frmMyWindow.setLayout(layout);
+       // prepare the image label array
+       JLabel[] labels = new JLabel[NUM_CARD_IMAGES];
+       for (k = 0; k < NUM_CARD_IMAGES; k++)
+          labels[k] = new JLabel(icon[k]);
+       // place your 3 controls into frame
+       for (k = 0; k < NUM_CARD_IMAGES; k++)
+          frmMyWindow.add(labels[k]);
+       // show everything to the user
+       frmMyWindow.setVisible(true);
+    }
+ }
